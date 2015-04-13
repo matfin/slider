@@ -3,7 +3,7 @@ Responsive Slider package
 
 ## About
 
-This is a simple slider plugin written in Pure Javascript, that is designed to be lightweight, fast and responsive.
+This is a simple slider plugin written in pure Javascript that is designed to be lightweight, fast and responsive.
 
 ## Installation
 
