@@ -17,6 +17,10 @@ $ meteor
 
 Given that this has been written in pure JS, there are no additional package requirements.
 
+## Usage
+
+Please see the README.md for the sample Meteor project, which can be found [https://github.com/matfin/slider-example](here). This includes all the code needed to get up and running.
+
 ## Why this slider ?
 
 I have written this slider to be as small and fast as possible, and tried to keep it doing very simple things that work well, instead of creating something large, complicated and bulky.
@@ -35,16 +39,24 @@ The aim is to minimise the number of recalculations required on interaction, use
 
 - This plugin has been tested to work on the latest two versions of most modern browsers, including the following
 	- Internet Explorer >= 10
-	- Safari
+	- Safari (Desktop and iOS)
 	- Firefox 
-	- Chrome
+	- Chrome (Desktop and Android)
 	- Opera
 
 ## Known issues
 
 - Swipe to scroll does not work for the default Android browser, as the touchmove event behaves in an unusual way. There is no immediate plan to address this issue, given the fact that Chrome is starting to replace this browser.
 
-Sample code
+## Examples of this running
+
+I have created a very simple Meteor project with an example of this slider running, with the templates set up and some basic CSS added. You can find it at [https://github.com/matfin/slider-example](https://github.com/matfin/slider-example)
+
+Other live websites using this package include
+
+- [http://annachristoffer.com](Anna Claire Christoffer - Conceptual Design)
+- [http://crymonstercry.com](Cry Monster Cry - Official Website)
+
 
 ## Troubleshooting
 
