@@ -10,7 +10,7 @@ Package.onUse(function(api) {
     /**
      *  Minimum Meteor version requirement
      */
-    api.versionsFrom('1.0.0.0');
+    api.versionsFrom('1.1.0.2');
 
     /** 
      *  Package source files
