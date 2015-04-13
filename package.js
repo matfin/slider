@@ -1,7 +1,7 @@
 Package.describe({
     name: 'matfin:slider',
     version: '1.0.0',
-    summary: 'This is a simple slider library built in pure Javascript and is designed to work with mouse and touch based devices.',
+    summary: 'Small and lightweight responsive slider library.',
     git: 'https://github.com/matfin/slider.git',
     documentation: 'README.md'
 });
