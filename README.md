@@ -11,7 +11,7 @@ This is a published meteor package and can be installed using the commands:
 
 ```sh
 $ cd /my-meteor-project
-$ mrt add matfin:slider
+$ meteor add matfin:slider
 $ meteor
 ```
 
