@@ -25,9 +25,3 @@ Package.onUse(function(api) {
      */
     api.export('Slider');
 });
-
-Package.onTest(function(api) {
-    api.use('tinytest');
-    api.use('matfin:slider');
-    api.addFiles('slider-tests.js');
-});
