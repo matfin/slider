@@ -4,9 +4,10 @@
  *	
  *	@class SliderElement
  *	@param {Object} domNode - the individual DOM node representing the Slider Element
+ *	@param {Object} optionsOverride - optional overrides to default values
  *	@constructor
  */
-function SliderElement(domNode) {
+function SliderElement(domNode, optionsOverride) {
 	/**
 	 *	The html dom element for the slider	
 	 *
@@ -14,6 +15,14 @@ function SliderElement(domNode) {
 	 *	@type {object}
 	 */
 	this.container = domNode;
+
+	/**
+	 *	Options override 
+	 *
+	 *	@property optionsOverride
+	 *	@type {object}
+	 */
+	this.optionsOverride = optionsOverride;
 
 	/**
 	 *	The slider that needs to be scrolled
@@ -139,6 +148,14 @@ function SliderElement(domNode) {
 	this.currentSlide = 0;
 
 	/**
+	 *	Number of slide items to show at the same time.
+	 *
+	 *	@property {number} concurrentSlides
+	 *	@default 1
+	 */
+	this.concurrentSlides = 1;
+
+	/**
 	 *	Slider is animating
 	 *
 	 *	@property {boolean} isAnimating
@@ -189,6 +206,17 @@ SliderElement.prototype.init = function() {
 		snapToNearest: true,
 		snapSpeedMillis: 400
 	};
+
+	/**
+	 *	Adding any custom properties to override defaults.
+	 *	If the given object has a property that matches the slider 
+	 *	object, we swap around the values.
+	 */
+	for (var property in this.optionsOverride) {
+		if(this.hasOwnProperty(property)) {
+			this[property] = this.optionsOverride[property];
+		}
+	}
 
 	/**
 	 *	Listen for image loading events. Every time an image loads,
@@ -533,14 +561,15 @@ SliderElement.prototype.goToSlide = function(slideNumber) {
 	 */
 	this.isAnimating = true;
 	this.toggleSmoothAnimation(true);
-	var sliderBounds = {};
+	var sliderBounds = {},
+		numberOfSlides = this.slides.length / this.concurrentSlides;
 
 	/**
 	 *	If the slideNumber is greater than the number of slides
 	 *	or less than zero, apply these constraints
 	 */
-	if(slideNumber >= (this.slides.length)) {
-		slideNumber = this.slides.length - 1;
+	if(slideNumber >= (numberOfSlides)) {
+		slideNumber = numberOfSlides - 1;
 		sliderBounds.direction = 'right';
 		sliderBounds.slideNumber = slideNumber;
 	}
@@ -752,10 +781,11 @@ Slider = {
 	 *
 	 *	@method setup
 	 *	@param {object} sliderContainerNode - the DOM node representing the slider container
+	 *	@param {object} optionsOverride - optional parameters to override default values
 	 *	@return {object} sliderElement - the sliderElement object 
 	 */
-	setup: function(sliderContainerNode) {
-		return new SliderElement(sliderContainerNode);
+	setup: function(sliderContainerNode, optionsOverride) {
+		return new SliderElement(sliderContainerNode, optionsOverride);
 	},
 
 	/**
