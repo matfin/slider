@@ -448,6 +448,16 @@ SliderElement.prototype.onUp = function(e) {
  *	@return undefined
  */
 SliderElement.prototype.onLeave = function(e) {
+
+	/**
+	 *	Only dispatch the sliderDrop custom event to 
+	 *	go to a slide if the mouse is down and the slider
+	 *	is being dragged on mouse leave
+	 */
+	if(this.mousedown) {
+		this.container.dispatchEvent(this.customEvents.sliderdrop);
+	}
+
 	/**
 	 *	Called on events 'touchleave' and 'mouseleave'.
 	 *	Cancel the repaint of the slider and reset mouse diff
@@ -457,11 +467,6 @@ SliderElement.prototype.onLeave = function(e) {
 	this.sliderX += this.dx;
 	this.customEvents.sliderdrop.dx = this.dx;
 	this.dx = 0;
-
-	/**
-	 *	Finally, trigger the sliderdrop event
-	 */
-	this.container.dispatchEvent(this.customEvents.sliderdrop);
 };
 
 /**
