@@ -1,6 +1,6 @@
 Package.describe({
     name: 'matfin:slider',
-    version: '1.1.0',
+    version: '1.1.1',
     summary: 'Small and lightweight responsive slider library.',
     git: 'https://github.com/matfin/slider.git',
     documentation: 'README.md'
