@@ -43,6 +43,16 @@ function SliderElement(domNode, optionsOverride) {
 	this.dx = 0;
 
 	/**
+	 *	Used to calculate the movement of the mouse along the x 
+	 *	axis from when the mouse button was first held down
+	 *	
+	 *	@property dy
+	 *	@type {number}
+	 *	@default 0
+	 */
+	this.dy = 0;
+
+	/**
 	 *	Used to store the current translated X coordinate of the slider
 	 *
 	 *	@property sliderX
@@ -55,10 +65,14 @@ function SliderElement(domNode, optionsOverride) {
 	 *	Determine whether to start dragging the slider with this.
 	 *
 	 *	@property mousedown
-	 *	@type {number}
-	 *	@default 0
+	 *	@type {Object}
+	 *	@default {}
 	 */
-	this.mousedown = 0;
+	this.mousedown = {
+		x: 0,
+		y: 0,
+		active: false
+	};
 
 	/**
 	 *	The slides contained within the slider
@@ -387,7 +401,11 @@ SliderElement.prototype.onDown = function(e) {
 	 */
 	this.cancelUpdate();
 	this.update();
-	this.mousedown = e.pageX || e.touches[0].pageX;
+	this.mousedown = {
+		x: e.pageX || e.touches[0].pageX,
+		y: e.pageY || e.touches[0].pageY,
+		active: true
+	}; 
 };
 
 /**
@@ -408,9 +426,18 @@ SliderElement.prototype.onMove = function(e) {
 
 	e.preventDefault();
 
-	if(this.mousedown) {
-		var xCoord = e.pageX || e.touches[0].pageX;
-		this.dx = 0 - (this.mousedown - xCoord);
+	if(this.mousedown.active) {
+
+		var xCoord = e.pageX || e.touches[0].pageX,
+			yCoord = e.clientY || e.touches[0].clientY;
+		this.dx = 0 - (this.mousedown.x - xCoord);
+
+
+		if(this.dy) {
+			window.scrollBy(0, this.dy - yCoord);
+		}
+
+		this.dy =  yCoord;
 	}
 };
 
@@ -427,11 +454,16 @@ SliderElement.prototype.onUp = function(e) {
 	 *	Cancel the repaint of the slider and reset mouse diff
 	 *	but first update the sliderX coordinates.
 	 */
-	this.mousedown = false;
+	this.mousedown = {
+		x: 0, 
+		y: 0,
+		active: false
+	};
 	this.cancelUpdate();
 	this.sliderX += this.dx;
 	this.customEvents.sliderdrop.dx = this.dx;
 	this.dx = 0;
+	this.dy = false;
 
 	/**
 	 *	Finally, trigger the sliderdrop event
@@ -454,7 +486,7 @@ SliderElement.prototype.onLeave = function(e) {
 	 *	go to a slide if the mouse is down and the slider
 	 *	is being dragged on mouse leave
 	 */
-	if(this.mousedown) {
+	if(this.mousedown.active) {
 		this.container.dispatchEvent(this.customEvents.sliderdrop);
 	}
 
@@ -462,7 +494,11 @@ SliderElement.prototype.onLeave = function(e) {
 	 *	Called on events 'touchleave' and 'mouseleave'.
 	 *	Cancel the repaint of the slider and reset mouse diff
 	 */
-	this.mousedown = false;
+	this.mousedown = {
+		x: 0,
+		y: 0,
+		active: false
+	};
 	this.cancelUpdate();
 	this.sliderX += this.dx;
 	this.customEvents.sliderdrop.dx = this.dx;
@@ -669,7 +705,7 @@ SliderElement.prototype.update = function() {
 	 *
 	 */
 	this.animationFrameId = this.requestAnimationFrame(this.update.bind(this));
-	var translateX = (this.sliderX + this.dx);
+	var translateX 	= (this.sliderX + this.dx);
 	this.transform(translateX);
 };
 
