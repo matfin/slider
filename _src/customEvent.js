@@ -1,12 +1,13 @@
-(function () {
-  function CustomEvent ( event, params ) {
-    params = params || { bubbles: false, cancelable: false, detail: undefined };
-    var evt = document.createEvent( 'CustomEvent' );
-    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-    return evt;
-   };
+(() => {
 
-  CustomEvent.prototype = window.Event.prototype;
+	let CustomEvent = (event, params) => {
+		let evt = document.createEvent('CustomEvent');
+		params 	= params || { bubbles: false, cancelable: false, detail: undefined };
+		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+		return evt;
+	};
 
-  window.CustomEvent = CustomEvent;
+  	CustomEvent.prototype = window.Event.prototype;
+
+  	window.CustomEvent = CustomEvent;
 })();
