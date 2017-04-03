@@ -1,0 +1,21 @@
+{
+  "name": "matfin-slider",
+  "homepage": "https://github.com/matfin/slider",
+  "authors": [
+    "Matt Finucane <matfin@gmail.com>"
+  ],
+  "description": "Simple responsive content swiper/slider.",
+  "main": "_src/slider.js",
+  "keywords": [
+    "slider",
+    "swiper"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
