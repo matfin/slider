@@ -1,0 +1,27 @@
+{
+  "name": "matfin-slider",
+  "version": "2.0.0",
+  "description": "Simple responsive content swiper/slider.",
+  "main": "dist/slider.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matfin/slider.git"
+  },
+  "keywords": [
+    "slider",
+    "swiper"
+  ],
+  "author": "Matt Finucane <matfin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matfin/slider/issues"
+  },
+  "homepage": "https://github.com/matfin/slider",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^2.1.2"
+  }
+}
