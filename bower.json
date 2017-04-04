@@ -6,18 +6,16 @@
     "Matt Finucane <matfin@gmail.com>"
   ],
   "description": "Simple responsive content swiper/slider.",
-  "main": "dist/slider.js",
+  "main": "_src/slider.js",
   "keywords": [
     "slider",
     "swiper"
   ],
   "license": "MIT",
   "ignore": [
-    "node_modules/",
-    "_src/",
-    ".jshintrc"
-    "*.json",
-    "!/bower.json",
+    ".gitignore",
+    ".jshintrc",
+    "package.json",
     "*.md",
     "LICENSE"
   ]
