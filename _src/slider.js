@@ -790,19 +790,6 @@ class Slider {
 		 *	@type 		{Array}
 		 */
 		this.sliderElements = [];
-	}
-
-	/**
-	 *	Function to set up all slider elements on a page.
-	 *
-	 *	@method 	setupAll
-	 *	@param 		{String} sliderSelectorContainer 	- A string representing the selector for the slider container(s)
-	 */
-	setupAll (sliderContainerSelector) {
-		let	sliderContainers = document.querySelectorAll(sliderContainerSelector);
-		sliderContainers.forEach((sliderContainer) => {
-			this.addSlide(sliderContainer);
-		});
 	}	
 
 	/**
@@ -816,14 +803,5 @@ class Slider {
 	 */
 	setup(sliderContainerNode, optionsOverride) {
 		return new SliderElement(sliderContainerNode, optionsOverride);
-	}
-
-	/**
-	 *	Function to initialise a new SliderElement and add it to the Slider.
-	 *
-	 *	@param 		{Object} sliderItem 	- slider dom element
-	 */
-	addSlide (sliderItem) {
-		this.sliderElements.push(new SliderElement(sliderItem));
 	}
 }
