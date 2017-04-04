@@ -3,63 +3,160 @@ Responsive Slider package
 
 ## About
 
-This is a simple slider plugin written in pure Javascript that is designed to be lightweight, fast and responsive.
+This is a simple slider plugin written in vanilla Javascript that is designed to be lightweight, fast and responsive.
 
 ## Installation
 
-This is a published meteor package and can be installed using the commands: 
+This is a published [Bower](https://bower.io/) package and can be installed using these commands: 
 
 ```sh
-$ cd /my-meteor-project
-$ meteor add matfin:slider
-$ meteor
+$ cd /my-project-root
+$ bower install matfin-slider
 ```
 
-Given that this has been written in pure JS, there are no additional package requirements.
+Given that this has been written in vanilla Javascript, there are no additional package requirements.
 
 ## Usage
 
-Please see the README.md for the sample Meteor project, which can be found [https://github.com/matfin/slider-example](here). This includes all the code needed to get up and running.
+To use this package directly, simply include it as a script in your html source as follows:
 
-## Why this slider ?
+```html
+<script src="bower_components/matfin-slider/_src/slider.js">
+</script>
+```
 
-I have written this slider to be as small and fast as possible, and tried to keep it doing very simple things that work well, instead of creating something large, complicated and bulky.
+You will then need to set up the html for your slider as follows:
 
-The aim is to minimise the number of recalculations required on interaction, use the hardware acceleration features of modern browsers, and deliver a smooth user experience even on low powered devices.
+```html
+<div class="slider">
+	<div class="slides" style="width: 300%">
+		<img src="this/is/slide/one.jpg" />
+		<img src="this/is/slide/two.jpg" />
+		<img src="this/is/slide/three.jpg" />
+	</div>
+</div>
+```
+
+The following CSS should apply:
+
+```css
+.slider {
+	position: relative;
+	overflow: hidden;
+	transform: translate3d(0px, 0px, 0px);
+}
+
+.slider .slides {
+	display: flex;
+}
+
+.slider .slides img {
+	flex: 1
+}
+```
+
+You will then need to add the following to your Javascript source:
+
+```js
+/**
+ *	To set up all sliders on a page.
+ */
+onload = () => {
+	let nodes = document.querySelectorAll('.slider');
+	nodes.forEach((node) => {
+		new Slider().setup(node);
+	});
+};
+```
+
+```js
+/**
+ *	To target an individual slider for set up.
+ */
+onload = () => {
+	let node 	= document.querySelector('.slider'),
+		slider 	= new Slider().setup(node);
+};
+```
+
+Events can also be dispatched as needed:
+
+```js
+
+onload = () => {
+	
+	let node 	= document.querySelector('.slider'),
+		slider 	= new Slider().setup(node);
+
+	/**
+	 *	This is fired when the slider has been let go.
+	 */
+	node.addEventListener('sliderdrop', (e) => {
+		console.log(e);
+		// your code here...
+	});
+
+	/**
+	 *	This is fired when the slider animation has completed.
+	 */
+	node.addEventListener('slidecomplete', (e) => {
+		console.log(e);
+		// your code here...
+	});
+
+	/**
+	 *	This is fired when the slider has reached the beginning or the end.
+	 */
+	node.addEventListener('sliderboundsreached', (e) => {
+		console.log(e);
+		// your code here...
+	});
+
+};
+
+```
+
+**Note:** 
+
+When setting the width for the slide container (`.slides`), you need to set this as `100%` multiplied by the number of slides inside `slides`. 
+
+The immediate children of `.slides` are regarded as a single slide. 
+
+If you wanted to caclulate the number of slides correctly and apply the `width` style using Javascript, you could do as follows:
+
+```
+onload = () => {
+	let slide_nodes = document.querySelectorAll('.slides');
+
+	slide_nodes.forEach((slide_node) => {
+		let count_children 		= slide_node.children.length;
+		slide_node.style.width 	= `${count_children * 100}%`;
+	});
+};
+```
 
 ## Features
-
 - Fully responsive, meaning it will work on mobile and tablet devices just as well as desktop devices.
 - Touch support, meaning the slider responds to touch events if supported, or normal mouse events.
 - Responds well to window resize events and recalibrates itself.
-- Makes use of requestAnimationFrame, for smoother transitions.
+- Makes use of requestAnimationFrame for smoother transitions.
 - Fires custom events, so you can write your own code to handle these.
 
 ## Support 
-
-- This plugin has been tested to work on the latest two versions of most modern browsers, including the following
-	- Internet Explorer >= 10
+- This plugin has been tested to work on the latest versions of most modern browsers, including the following
+	- Internet Explorer
+	- Microsoft Edge
 	- Safari (Desktop and iOS)
 	- Firefox 
 	- Chrome (Desktop and Android)
 	- Opera
 
-## Known issues
-
-- Swipe to scroll does not work for the default Android browser, as the touchmove event behaves in an unusual way. There is no immediate plan to address this issue, given the fact that Chrome is starting to replace this browser.
-
-## Examples of this running
-
-I have created a very simple Meteor project with an example of this slider running, with the templates set up and some basic CSS added. You can find it at [https://github.com/matfin/slider-example](https://github.com/matfin/slider-example)
-
-Other live websites using this package include
-
-- [http://annachristoffer.com](Anna Claire Christoffer - Conceptual Design)
-- [http://crymonstercry.com](Cry Monster Cry - Official Website)
-
+- The following browsers are not supported
+	- Internet explorer 10
+	- Default Android Browser
+	- Opera Mini
 
 ## Troubleshooting
-
 If you spot any issues, please add them to the issue tracker of this repository with the following information:
 
 - Browser/Platform name and version number
