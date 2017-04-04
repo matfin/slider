@@ -1,14 +1,24 @@
 /**
+ *	CustomEvent class
+ *
+ *	@class 		CustomEvent
+ */
+class CustomEvent {
+	constructor (name, params = {bubbles: false, cancelable: false, detail: null}) {
+		this.event = new Event(name, params);
+	}
+}
+
+/**
  *	SliderElement class, representing an individual DOM node for the sliders.
  *	This is so we can add sliders and attach events to them individually.
  *	
- *	@class SliderElement
- *	@param {Object} domNode - the individual DOM node representing the Slider Element
- *	@param {Object} optionsOverride - optional overrides to default values
+ *	@class 		SliderElement
+ *	@param 		{Object} domNode - the individual DOM node representing the Slider Element
+ *	@param 		{Object} optionsOverride - optional overrides to default values
  *	@constructor
  */
 class SliderElement {
-
 	/**
 	 *	Slider constructor
 	 *	
@@ -20,34 +30,34 @@ class SliderElement {
 		/**
 		 *	The html dom element for the slider	
 		 *
-		 *	@property node
-		 *	@type {object}
+		 *	@property 	domNode
+		 *	@type 		{Object}
 		 */
 		this.container = domNode;
 
 		/**
 		 *	Options override 
 		 *
-		 *	@property optionsOverride
-		 *	@type {object}
+		 *	@property 	optionsOverride
+		 *	@type 		{Object}
 		 */
 		this.optionsOverride = optionsOverride;
 
 		/**
 		 *	The slider that needs to be scrolled
 		 *	
-		 *	@property slider
-		 *	@type {object}
+		 *	@property 	slider
+		 *	@type 		{Object}
 		 */
-		this.slider = {};
+		this.slides = {};
 
 		/**
 		 *	Used to calculate the movement of the mouse along the x 
 		 *	axis from when the mouse button was first held down
 		 *	
-		 *	@property dx
-		 *	@type {number}
-		 *	@default 0
+		 *	@property 	dx
+		 *	@type 		{Number}
+		 *	@default 	0
 		 */
 		this.dx = 0;
 
@@ -55,27 +65,26 @@ class SliderElement {
 		 *	Used to calculate the movement of the mouse along the x 
 		 *	axis from when the mouse button was first held down
 		 *	
-		 *	@property dy
-		 *	@type {number}
-		 *	@default 0
+		 *	@property 	dy
+		 *	@type 		{Number}
+		 *	@default 	0
 		 */
 		this.dy = 0;
 
 		/**
 		 *	Used to store the current translated X coordinate of the slider
 		 *
-		 *	@property sliderX
-		 *	@type {number}
-		 *	@default {0}
+		 *	@property 	sliderX
+		 *	@type 		{Number}
+		 *	@default 	0
 		 */
 		this.sliderX = 0;
 
 		/**
 		 *	Determine whether to start dragging the slider with this.
 		 *
-		 *	@property mousedown
-		 *	@type {Object}
-		 *	@default {}
+		 *	@property 	mousedown
+		 *	@type 		{Object}
 		 */
 		this.mousedown = {
 			x: 0,
@@ -84,45 +93,46 @@ class SliderElement {
 		};
 
 		/**
-		 *	The slides contained within the slider
+		 *	The slide children contained within the slider
 		 *
-		 *	@property slides
-		 *	@type {Object}
+		 *	@property 	children
+		 *	@type 		{Object}
+		 *	@default 	{}
 		 */
-		this.slides = {};
+		this.children = {};
 
 		/**
 		 *	The slider width, determined by the slider container width
 		 *	
-		 *	@property sliderWidth
-		 *	@type {number}
-		 *	@default 0
+		 *	@property 	sliderWidth
+		 *	@type 		{Number}
+		 *	@default 	0
 		 */
 		this.sliderWidth = 0;
 
 		/**
 		 *	The events we need to attach to the slider, for mouse and touch events
 		 *
-		 *	@property events
-		 *	@type {Object}
-		 *	@default {}
+		 *	@property 	events
+		 *	@type 		{Object}
+		 *	@default 	{}
 		 */
 		this.events = {};
 
 		/**
 		 *	The id associated with the repaint of the slider 
 		 *	
-		 *	@property animationFrameId
-		 *	@type {number}
+		 *	@property 	animationFrameId
+		 *	@type 		{Number}
 		 */
 		this.animationFrameId = 0;
 
 		/**
 		 *	Slider animation transition duration
 		 *
-		 *	@property transitionDuration
-		 *	@type {number}
-		 *	@default 350
+		 *	@property 	transitionDuration
+		 *	@type 		{Number}
+		 *	@default 	350
 		 */
 		this.transitionDuration = 350;
 
@@ -130,34 +140,34 @@ class SliderElement {
 		 *	Callback timeout to be used by functions spawned multiple times 
 		 *	and that have callbacks that only need to be called once.
 		 *	
-		 *	@property callbackTimeout
-		 *	@type {number}
+		 *	@property 	callbackTimeout
+		 *	@type 		{Number}
 		 */
 		this.callbackTimeout = 500;
 
 		/**
 		 *	Custom events: ie; for when the slider is dropped
 		 *
-		 *	@property customEvents
-		 *	@type {Object}
-		 *	@default {}
+		 *	@property 	customEvents
+		 *	@type 		{Object}
+		 *	@default 	{}
 		 */
 		this.customEvents = {};
 
 		/**
 		 *	Custom options for the slider
 		 *
-		 *	@property options
-		 *	@type {Object}
-		 *	@default {}
-		 *	@TODO: Allow these to be passed in externally
+		 *	@property 	options
+		 *	@type 		{Object}
+		 *	@default 	{}
 		 */
 		this.options = {};
 
 		/**
 		 *	Current slider speed when it is snapping back to a position
 		 *
-		 *	@property {number} currentSpeed
+		 *	@property 	currentSpeed
+		 *	@type 		{Number}
 		 *	@default 0
 		 */
 		this.currentSpeed = 0;
@@ -165,7 +175,8 @@ class SliderElement {
 		/**
 		 *	The current slide the slider is on
 		 *
-		 *	@property {number} currentSlide
+		 *	@property 	currentSlide
+		 *	@type 		{Number}
 		 *	@default 0
 		 */
 		this.currentSlide = 0;
@@ -173,7 +184,8 @@ class SliderElement {
 		/**
 		 *	Number of slide items to show at the same time.
 		 *
-		 *	@property {number} concurrentSlides
+		 *	@property 	concurrentSlides
+		 *	@type 		{Number}
 		 *	@default 1
 		 */
 		this.concurrentSlides = 1;
@@ -181,15 +193,17 @@ class SliderElement {
 		/**
 		 *	Slider is animating
 		 *
-		 *	@property {boolean} isAnimating
-		 *	@default false
+		 *	@property 	isAnimating
+		 *	@type 		{Boolean}
+		 *	@default 	false
 		 */
 		this.isAnimating = false;
 
 		/**
 		 *	Slider image DOM nodes
 		 *
-		 *	@property {object} images
+		 *	@property 	images
+		 *	@type 		{Array}
 		 */
 		this.images = [];
 
@@ -208,8 +222,8 @@ class SliderElement {
 		/**
 		 *	Setting up
 		 */
-		this.slider 		= this.container.getElementsByClassName('slides')[0];
-		this.slides 		= this.container.getElementsByTagName('picture');
+		this.slides 		= this.container.querySelector('div.slides');
+		this.children 		= this.slides.children;
 		this.sliderWidth 	= this.container.offsetWidth;
 
 		/**
@@ -470,7 +484,7 @@ class SliderElement {
 		this.cancelUpdate();
 		
 		this.sliderX += this.dx;
-		this.customEvents.sliderdrop.dx = this.dx;
+		this.customEvents.sliderdrop.event.dx = this.dx;
 
 		this.dx = 0;
 		this.dy = false;
@@ -478,7 +492,7 @@ class SliderElement {
 		/**
 		 *	Finally, trigger the sliderdrop event
 		 */
-		this.container.dispatchEvent(this.customEvents.sliderdrop);
+		this.container.dispatchEvent(this.customEvents.sliderdrop.event);
 	}
 
 	/**
@@ -495,7 +509,7 @@ class SliderElement {
 		 *	is being dragged on mouse leave
 		 */
 		if(this.mousedown.active) {
-			this.container.dispatchEvent(this.customEvents.sliderdrop);
+			this.container.dispatchEvent(this.customEvents.sliderdrop.event);
 		}
 
 		/**
@@ -509,7 +523,7 @@ class SliderElement {
 		};
 		this.cancelUpdate();
 		this.sliderX += this.dx;
-		this.customEvents.sliderdrop.dx = this.dx;
+		this.customEvents.sliderdrop.event.dx = this.dx;
 		this.dx = 0;
 	}
 
@@ -526,7 +540,7 @@ class SliderElement {
 		 *	Function carrying out calculations helping to decide whether to 
 		 *	move the slider and if so, in which direction.
 		 *
-		 *	If it has moved more than 50% in any direction, then the threshhold 
+		 *	If it has moved more than 16% in any direction, then the threshhold 
 		 *	has been met and we should move to the nexr/prev slide.
 		 *
 		 *	If the direction the slider was pulled was negative, then move it to 
@@ -608,7 +622,7 @@ class SliderElement {
 		this.isAnimating = true;
 		this.toggleSmoothAnimation(true);
 		let sliderBounds = {},
-			numberOfSlides = this.slides.length / this.concurrentSlides;
+			numberOfSlides = this.children.length / this.concurrentSlides;
 
 		/**
 		 *	If the slideNumber is greater than the number of slides
@@ -646,18 +660,18 @@ class SliderElement {
 				 *	If we hit either end of the slider, dispatch the event
 				 */
 				if(sliderBounds.direction != null) {
-					this.customEvents.boundsreached.data = sliderBounds;
-					this.container.dispatchEvent(this.customEvents.boundsreached);
+					this.customEvents.boundsreached.event.data = sliderBounds;
+					this.container.dispatchEvent(this.customEvents.boundsreached.event);
 				}
 
 				/**
 				 *	Fire of the slidecomplete custom event 
 				 */
-				this.customEvents.slidecomplete.data = {
+				this.customEvents.slidecomplete.event.data = {
 					currentSlide: this.currentSlide 
 				};
 
-				this.container.dispatchEvent(this.customEvents.slidecomplete);
+				this.container.dispatchEvent(this.customEvents.slidecomplete.event);
 
 			}, this.transitionDuration);
 		});
@@ -671,12 +685,12 @@ class SliderElement {
 	 */
 	toggleSmoothAnimation (on) {
 		if(on) {
-			this.slider.style.transitionDuration = this.slider.style.WebkitTransitionDuration = this.transitionDuration + 'ms';
-			this.slider.style.transitionProperty = this.slider.style.WebkitTransitionProperty = 'transform';
+			this.slides.style.transitionDuration = this.slides.style.WebkitTransitionDuration = this.transitionDuration + 'ms';
+			this.slides.style.transitionProperty = this.slides.style.WebkitTransitionProperty = 'transform';
 		}
 		else {
-			this.slider.style.transitionDuration = this.slider.style.WebkitTransitionDuration = 'initial';
-			this.slider.style.transitionProperty = this.slider.style.WebkitTransitionProperty = 'initial';
+			this.slides.style.transitionDuration = this.slides.style.WebkitTransitionDuration = 'initial';
+			this.slides.style.transitionProperty = this.slides.style.WebkitTransitionProperty = 'initial';
 		}
 	}
 
@@ -725,9 +739,9 @@ class SliderElement {
 			};
 		}
 
-		this.slider.style.transform = this.slider.style.webkitTransform = `translate3d(${translateX}px,0,0)`;
+		this.slides.style.transform = this.slides.style.webkitTransform = `translate3d(${translateX}px,0,0)`;
 
-		if(typeof callback != null) {
+		if(typeof callback != null && typeof callback === 'function') {
 			callback(translateX);
 		}
 	}
