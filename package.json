@@ -1,5 +1,5 @@
 {
-  "name": "slider",
+  "name": "matfin-slider",
   "version": "2.0.1",
   "description": "\"Responsive slider/swiper written in Vanilla JS.\"",
   "main": "gulpfile.js",

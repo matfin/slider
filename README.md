@@ -2,26 +2,35 @@ Responsive Slider package
 =========================
 
 ## About
-
 This is a simple slider plugin written in vanilla Javascript that is designed to be lightweight, fast and responsive.
 
 ## Installation
+This package is published on [NPMJS](https://www.npmjs.com) and [Yarn](https://yarnpkg.com/en/docs/managing-dependencies) and can be installed with either package management tool.
 
-This is a published [Bower](https://bower.io/) package and can be installed using these commands: 
-
+To install via NPM:
 ```sh
 $ cd /my-project-root
-$ bower install matfin-slider
+$ npm install matfin-slider
 ```
 
-Given that this has been written in vanilla Javascript, there are no additional package requirements.
+To install via Yarn:
+```sh
+$ cd /my-project-root
+$ yarn add matfin-slider
+```
+
+This package has been written in Vanilla Javascript (ES2015) and is transpiled to ES5 using babel. The set up is as follows:
+
+- `_src/slider.js` is the source code written in ES2015.
+- `dist/slider.js` is the transpiled version unminified and converted to use the ES5 syntax of JS.
+- `dist/slider.min.js` is the transpiled and minified version of the code.
 
 ## Usage
 
 To use this package directly, simply include it as a script in your html source as follows:
 
 ```html
-<script src="bower_components/matfin-slider/_src/slider.js">
+<script src="bower_components/matfin-slider/_dist/slider.js">
 </script>
 ```
 
@@ -151,10 +160,9 @@ onload = () => {
 	- Chrome (Desktop and Android)
 	- Opera
 
-- The following browsers are not supported
-	- Internet explorer 10
+- The following browsers are not fully supported so you may encounter issies with them.
+	- Internet Explorer 10
 	- Default Android Browser
-	- Opera Mini
 
 ## Troubleshooting
 If you spot any issues, please add them to the issue tracker of this repository with the following information:
