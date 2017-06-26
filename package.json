@@ -1,10 +1,10 @@
 {
   "name": "matfin-slider",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple responsive content swiper/slider.",
   "main": "_src/slider.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Tests coming soon\" && exit 0"
   },
   "repository": {
     "type": "git",
