@@ -12,6 +12,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-babel-minify": "^0.1.12",
     "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
     "jshint": "^2.9.5"
   }
 }
